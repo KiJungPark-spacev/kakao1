@@ -1,471 +1,144 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>카카오페이 간편송금 전환 효과 시뮬레이터</title>
-  <style>
-    :root {
-      --bg: #f6f7f9;
-      --panel: #ffffff;
-      --text: #17202a;
-      --muted: #687385;
-      --line: #e6e9ef;
-      --accent: #1f6feb;
-      --good: #0f766e;
-      --bad: #b42318;
-      --soft: #eef5ff;
-      --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Apple SD Gothic Neo", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.45;
-    }
-    .wrap {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 32px 20px 48px;
-    }
-    header {
-      margin-bottom: 18px;
-    }
-    h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      letter-spacing: -0.04em;
-    }
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0;
-    }
-    .grid {
-      display: grid;
-      gap: 16px;
-    }
-    .grid.cols-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .grid.cols-4 {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-    .panel h2 {
-      margin: 0 0 12px;
-      font-size: 18px;
-      letter-spacing: -0.03em;
-    }
-    .panel h3 {
-      margin: 16px 0 10px;
-      font-size: 15px;
-      letter-spacing: -0.02em;
-    }
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    select {
-      width: 100%;
-      padding: 12px 12px;
-      border: 1px solid #cfd6e4;
-      border-radius: 12px;
-      background: #fff;
-      font-size: 15px;
-      color: var(--text);
-    }
-    .hint {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .kpi {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
-      min-height: 112px;
-    }
-    .kpi .label {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-    .kpi .value {
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin-bottom: 4px;
-    }
-    .kpi .sub {
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .kpi.good .value { color: var(--good); }
-    .kpi.bad .value { color: var(--bad); }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    th, td {
-      padding: 11px 10px;
-      border-bottom: 1px solid var(--line);
-      text-align: right;
-      white-space: nowrap;
-    }
-    th:first-child, td:first-child {
-      text-align: left;
-    }
-    th {
-      background: #f8fafc;
-      color: #344054;
-      font-weight: 700;
-    }
-    tr:last-child td { border-bottom: 0; }
-    .summary-box {
-      background: var(--soft);
-      border: 1px solid #cfe2ff;
-      border-radius: 16px;
-      padding: 16px;
-      margin-top: 16px;
-    }
-    .summary-box strong { color: var(--accent); }
-    .note {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .mono {
-      font-variant-numeric: tabular-nums;
-    }
-    .pill {
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: #eef2f7;
-      color: #344054;
-      font-size: 12px;
-      margin-left: 6px;
-    }
-    .footer-note {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 18px;
-    }
-    @media (max-width: 900px) {
-      .grid.cols-3, .grid.cols-4, .controls {
-        grid-template-columns: 1fr;
-      }
-      th, td { font-size: 12px; padding: 9px 6px; }
-      .kpi .value { font-size: 22px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카카오페이 간편송금 전환 효과 시뮬레이터</title>
+<style>
+body{margin:0;background:#f6f7f9;color:#17202a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif}
+.wrap{max-width:1150px;margin:0 auto;padding:32px 20px 48px}
+h1{margin:0 0 8px;font-size:28px;letter-spacing:-.04em}h2{margin:0 0 14px;font-size:18px}.sub{color:#667085;font-size:14px}
+.panel{background:#fff;border:1px solid #e6e9ef;border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.08);padding:18px;margin-top:16px}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}label{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
+select{width:100%;padding:12px;border:1px solid #cfd6e4;border-radius:12px;background:#fff;font-size:15px}
+.hint,.note{margin-top:6px;color:#667085;font-size:12px}.grid{display:grid;gap:16px}.cols4{grid-template-columns:repeat(4,1fr)}.cols3{grid-template-columns:repeat(3,1fr)}
+.kpi{background:#fff;border:1px solid #e6e9ef;border-radius:16px;padding:16px;min-height:112px}.kpi .label{color:#667085;font-size:13px;margin-bottom:8px}.kpi .val{font-size:24px;font-weight:800;letter-spacing:-.04em}.good .val{color:#0f766e}.bad .val{color:#b42318}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:10px;border-bottom:1px solid #e6e9ef;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#f8fafc}.box{background:#eef5ff;border:1px solid #cfe2ff;border-radius:16px;padding:16px}.warn{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:12px 14px;color:#7c2d12;font-size:13px;margin-top:12px}.mono{font-variant-numeric:tabular-nums}
+@media(max-width:900px){.controls,.cols4,.cols3{grid-template-columns:1fr}th,td{font-size:12px;padding:8px 6px}.kpi .val{font-size:21px}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>카카오페이 간편송금 전환 효과 시뮬레이터</h1>
-      <p class="subtitle">
-        기준: 2026.03.02~2026.05.31 주간 이용금액, 결제수단 비중은 2026.03.02~2026.05.27 일별 결제금액 기준. 보증금 제외 이용금액 기준으로 연간 효과를 산정함.
-      </p>
-    </header>
+<div class="wrap">
+<h1>카카오페이 간편송금 전환 효과 시뮬레이터</h1>
+<p class="sub">예치이자는 보증금 포함 결제금액 기준, 수수료는 보증금 제외 이용금액 기준으로 산정함.</p>
 
-    <section class="panel">
-      <h2>1. 시뮬레이션 조건</h2>
-      <div class="controls">
-        <div>
-          <label for="vaRate">가상계좌 → 카카오페이 전환율</label>
-          <select id="vaRate"></select>
-          <div class="hint">가상계좌 이용금액 중 카카오페이 간편송금으로 이동하는 비율</div>
-        </div>
-        <div>
-          <label for="cardRate">국내 신용카드 → 카카오페이 전환율</label>
-          <select id="cardRate"></select>
-          <div class="hint">국내카드 이용금액 중 카카오페이 간편송금으로 이동하는 비율</div>
-        </div>
-        <div>
-          <label for="growthRate">월평균 이용금액 상승률</label>
-          <select id="growthRate"></select>
-          <div class="hint">월별 이용금액 성장률. 연간 효과에 성장 배수를 적용함.</div>
-        </div>
-      </div>
-      <p class="note">
-        고정 전제: 기존 정산 T+5, 카카오페이 간편송금 T 정산, 정산 단축 5일, 연 예치이율 3%, 국내카드 수수료 2.12%, 가상계좌 수수료 180원/건, 카카오페이 수수료 200원/건.
-      </p>
-    </section>
+<section class="panel">
+<h2>1. 입력 조건</h2>
+<div class="controls">
+<div><label>가상계좌 → 카카오페이 전환율</label><select id="vaRate"></select><div class="hint">가상계좌 결제/이용금액 중 이동 비율</div></div>
+<div><label>국내 신용카드 → 카카오페이 전환율</label><select id="cardRate"></select><div class="hint">국내카드 결제/이용금액 중 이동 비율</div></div>
+<div><label>월평균 거래액 상승률</label><select id="growthRate"></select><div class="hint">연간 효과에 월별 성장 배수 반영</div></div>
+</div>
+<div class="warn">고정 전제: 기존 T+5, 카카오페이 T 정산, 정산 단축 5일, 연 예치이율 3%, 국내카드 수수료 2.12%, 가상계좌 수수료 180원/건, 카카오페이 수수료 200원/건.</div>
+</section>
 
-    <section class="grid cols-4" style="margin-top:16px;">
-      <div class="kpi" id="kpiConverted">
-        <div class="label">연간 카카오페이 전환 이용금액</div>
-        <div class="value mono">-</div>
-        <div class="sub">가상계좌 + 국내카드 전환분</div>
-      </div>
-      <div class="kpi good" id="kpiInterest">
-        <div class="label">연 예치이자 효과</div>
-        <div class="value mono">-</div>
-        <div class="sub">전환 이용금액 × 5일 × 3%</div>
-      </div>
-      <div class="kpi" id="kpiFee">
-        <div class="label">연 수수료 효과</div>
-        <div class="value mono">-</div>
-        <div class="sub">수수료 절감은 +, 증가분은 -</div>
-      </div>
-      <div class="kpi good" id="kpiTotal">
-        <div class="label">연 총 손익 효과</div>
-        <div class="value mono">-</div>
-        <div class="sub">예치이자 효과 + 수수료 효과</div>
-      </div>
-    </section>
+<section class="grid cols4" style="margin-top:16px">
+<div class="kpi"><div class="label">연 전환 결제금액</div><div id="convertedPayment" class="val mono">-</div><div class="note">보증금 포함, 예치이자 기준</div></div>
+<div class="kpi good"><div class="label">연 예치이자 효과</div><div id="interest" class="val mono">-</div><div class="note">전환 결제금액 × 5일 × 3%</div></div>
+<div class="kpi"><div class="label">연 수수료 효과</div><div id="fee" class="val mono">-</div><div class="note">이용금액 및 건수 기준</div></div>
+<div class="kpi good" id="totalKpi"><div class="label">연 총 손익 효과</div><div id="total" class="val mono">-</div><div class="note">예치이자 + 수수료 효과</div></div>
+</section>
 
-    <section class="panel" style="margin-top:16px;">
-      <h2>2. 출처별 효과</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>구분</th>
-            <th>전환율</th>
-            <th>연 전환 이용금액</th>
-            <th>예상 전환 건수</th>
-            <th>연 예치이자 효과</th>
-            <th>연 수수료 효과</th>
-            <th>연 총 효과</th>
-          </tr>
-        </thead>
-        <tbody id="breakdownBody"></tbody>
-      </table>
-      <p class="note">
-        예상 전환 건수는 주간 이용금액의 평균 거래금액을 기준으로 추정함. 실제 결제수단별 객단가 차이에 따라 일부 오차가 발생할 수 있음.
-      </p>
-    </section>
+<section class="panel">
+<h2>2. 출처별 효과</h2>
+<table>
+<thead><tr><th>구분</th><th>전환율</th><th>연 전환 결제금액<br>(예치이자 기준)</th><th>연 전환 이용금액<br>(수수료 기준)</th><th>예상 전환 건수</th><th>연 예치이자 효과</th><th>연 수수료 효과</th><th>연 총 효과</th></tr></thead>
+<tbody id="body"></tbody>
+</table>
+<p class="note">전환 건수는 보증금 제외 이용금액의 평균 거래금액으로 추정함.</p>
+</section>
 
-    <section class="panel" style="margin-top:16px;">
-      <h2>3. 기준값</h2>
-      <div class="grid cols-3">
-        <div class="kpi">
-          <div class="label">기준 일평균 이용금액</div>
-          <div class="value mono" id="baseDailyUse">-</div>
-          <div class="sub">2026.03.02~2026.05.31</div>
-        </div>
-        <div class="kpi">
-          <div class="label">가상계좌 배분 이용금액</div>
-          <div class="value mono" id="baseVaAnnual">-</div>
-          <div class="sub">연환산 기준</div>
-        </div>
-        <div class="kpi">
-          <div class="label">국내카드 배분 이용금액</div>
-          <div class="value mono" id="baseCardAnnual">-</div>
-          <div class="sub">연환산 기준</div>
-        </div>
-      </div>
-      <h3>기준값 상세</h3>
-      <table>
-        <tbody>
-          <tr>
-            <td>분석 기간 이용금액 합계</td>
-            <td class="mono" id="baseUseTotal"></td>
-          </tr>
-          <tr>
-            <td>분석 기간 해외이용금액 합계</td>
-            <td class="mono" id="baseOverseasUse"></td>
-          </tr>
-          <tr>
-            <td>국내 이용금액 배분 기준</td>
-            <td class="mono">가상계좌 33.34% / 국내카드 66.66%</td>
-          </tr>
-          <tr>
-            <td>평균 이용금액 / 거래건</td>
-            <td class="mono" id="avgTicket"></td>
-          </tr>
-          <tr>
-            <td>성장 배수</td>
-            <td class="mono" id="growthFactor"></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+<section class="panel">
+<h2>3. 고정 기준값</h2>
+<div class="grid cols4">
+<div class="kpi"><div class="label">일평균 결제금액</div><div id="dailyPayment" class="val mono">-</div><div class="note">보증금 포함</div></div>
+<div class="kpi"><div class="label">일평균 이용금액</div><div id="dailyUse" class="val mono">-</div><div class="note">보증금 제외</div></div>
+<div class="kpi"><div class="label">가상계좌 이용금액 모수</div><div id="vaUseBase" class="val mono">-</div><div class="note">연환산</div></div>
+<div class="kpi"><div class="label">국내카드 이용금액 모수</div><div id="cardUseBase" class="val mono">-</div><div class="note">연환산</div></div>
+</div>
+<table style="margin-top:14px"><tbody>
+<tr><td>예치이자 기준</td><td id="paymentBasis" class="mono"></td></tr>
+<tr><td>수수료 기준</td><td id="useBasis" class="mono"></td></tr>
+<tr><td>국내 배분 기준</td><td class="mono">가상계좌 33.34% / 국내카드 66.66%</td></tr>
+<tr><td>평균 이용금액 / 거래건</td><td id="avgTicket" class="mono"></td></tr>
+<tr><td>성장 배수</td><td id="growthFactor" class="mono"></td></tr>
+</tbody></table>
+</section>
 
-    <section class="panel" style="margin-top:16px;">
-      <h2>4. 해석</h2>
-      <div class="summary-box" id="interpretation"></div>
-      <p class="footer-note">
-        본 시뮬레이션은 보증금 제외 이용금액 기준의 추정치임. 실제 적용 후에는 카카오페이 전환 출처를 가상계좌/국내카드 기준으로 분해해 재검증하는 것이 필요함.
-      </p>
-    </section>
-  </div>
+<section class="panel">
+<h2>4. 해석</h2>
+<div id="summary" class="box"></div>
+</section>
+</div>
 
 <script>
-const BASE = {
-  // Weekly usage basis: 2026-03-02 ~ 2026-05-31, 13 weeks / 91 days
-  totalUse: 55846293488,
-  overseasUse: 12668690661,
-  txCount: 63025,
-  days: 91,
+const BASE={
+  // 예치이자 기준: 2026-03-01~2026-05-27 보증금 포함 결제금액
+  paymentDays:88,
+  paymentTotal:75900000000,
+  paymentVaDaily:252000000,
+  paymentCardDaily:503000000,
 
-  // Payment mix basis: 2026-03-02 ~ 2026-05-27 daily payment amount
-  vaDomesticShare: 0.33340947901434376,
-  cardDomesticShare: 0.6665905209856562,
+  // 수수료 기준: 2026-03-02~2026-05-31 보증금 제외 이용금액
+  useTotal:55846293488,
+  overseasUse:12668690661,
+  txCount:63025,
+  useDays:91,
+  vaShare:0.33340947901434376,
+  cardShare:0.6665905209856562,
 
-  settlementDays: 5,
-  annualInterestRate: 0.03,
-  domesticCardFeeRate: 0.0212,
-  virtualAccountFee: 180,
-  kakaopayFee: 200
+  settlementDays:5,
+  interestRate:0.03,
+  cardFeeRate:0.0212,
+  vaFee:180,
+  kpFee:200
 };
+function opts(id, arr, def){let s=document.getElementById(id);arr.forEach(v=>{let o=document.createElement('option');o.value=v/100;o.textContent=v+'%';if(v===def)o.selected=true;s.appendChild(o);});}
+opts('vaRate',[0,5,10,15,20,25,30,40,50,75,100],20);
+opts('cardRate',[0,1,2,3,5,10,15,20,25,30,40,50],10);
+opts('growthRate',[0,1,2,3,5,7,10],0);
+function krw(n){let sign=n<0?'-':'';n=Math.abs(n);if(n>=1e8)return sign+(n/1e8).toLocaleString('ko-KR',{maximumFractionDigits:1})+'억 원';if(n>=1e4)return sign+Math.round(n/1e4).toLocaleString('ko-KR')+'만 원';return sign+Math.round(n).toLocaleString('ko-KR')+'원';}
+function pct(n){return (n*100).toLocaleString('ko-KR',{maximumFractionDigits:1})+'%';}
+function gf(r){let s=0;for(let m=0;m<12;m++)s+=Math.pow(1+r,m);return s/12;}
+function set(id,v){document.getElementById(id).textContent=v;}
+function calc(){
+  const vr=+document.getElementById('vaRate').value, cr=+document.getElementById('cardRate').value, gr=+document.getElementById('growthRate').value, g=gf(gr);
+  const avgTicket=BASE.useTotal/BASE.txCount;
 
-const rateOptionsVa = [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
-const rateOptionsCard = [0, 1, 2, 3, 5, 10, 15, 20, 25, 30, 40, 50];
-const growthOptions = [0, 1, 2, 3, 5, 7, 10];
+  const payVaAnnual=BASE.paymentVaDaily*365*g, payCardAnnual=BASE.paymentCardDaily*365*g;
+  const domesticUse=BASE.useTotal-BASE.overseasUse, factor=365/BASE.useDays;
+  const useVaAnnual=domesticUse*BASE.vaShare*factor*g, useCardAnnual=domesticUse*BASE.cardShare*factor*g;
 
-function fillSelect(id, options, defaultValue) {
-  const select = document.getElementById(id);
-  options.forEach(v => {
-    const opt = document.createElement("option");
-    opt.value = v / 100;
-    opt.textContent = `${v}%`;
-    if (v === defaultValue) opt.selected = true;
-    select.appendChild(opt);
-  });
-}
+  const payVaConv=payVaAnnual*vr, payCardConv=payCardAnnual*cr;
+  const useVaConv=useVaAnnual*vr, useCardConv=useCardAnnual*cr;
 
-fillSelect("vaRate", rateOptionsVa, 20);
-fillSelect("cardRate", rateOptionsCard, 10);
-fillSelect("growthRate", growthOptions, 0);
+  const vaTx=useVaConv/avgTicket, cardTx=useCardConv/avgTicket;
+  const vaInterest=(payVaConv/365)*BASE.settlementDays*BASE.interestRate;
+  const cardInterest=(payCardConv/365)*BASE.settlementDays*BASE.interestRate;
+  const vaFee=vaTx*(BASE.vaFee-BASE.kpFee);
+  const cardFee=useCardConv*BASE.cardFeeRate-cardTx*BASE.kpFee;
 
-function krw(n) {
-  const sign = n < 0 ? "-" : "";
-  n = Math.abs(n);
-  if (n >= 100000000) return `${sign}${(n / 100000000).toLocaleString("ko-KR", {maximumFractionDigits: 1})}억 원`;
-  if (n >= 10000) return `${sign}${Math.round(n / 10000).toLocaleString("ko-KR")}만 원`;
-  return `${sign}${Math.round(n).toLocaleString("ko-KR")}원`;
-}
-
-function pct(n) {
-  return `${(n * 100).toLocaleString("ko-KR", {maximumFractionDigits: 1})}%`;
-}
-
-function growthFactor(monthlyRate) {
-  let sum = 0;
-  for (let m = 0; m < 12; m++) sum += Math.pow(1 + monthlyRate, m);
-  return sum / 12;
-}
-
-function setKpi(id, value, sub, isBad=false) {
-  const el = document.getElementById(id);
-  el.querySelector(".value").textContent = value;
-  if (sub) el.querySelector(".sub").textContent = sub;
-  el.classList.toggle("bad", isBad);
-  el.classList.toggle("good", !isBad);
-}
-
-function calculate() {
-  const vaRate = Number(document.getElementById("vaRate").value);
-  const cardRate = Number(document.getElementById("cardRate").value);
-  const monthlyGrowth = Number(document.getElementById("growthRate").value);
-  const gf = growthFactor(monthlyGrowth);
-
-  const domesticUse = BASE.totalUse - BASE.overseasUse;
-  const avgTicket = BASE.totalUse / BASE.txCount;
-  const annualFactor = 365 / BASE.days;
-
-  const vaAnnualBase = domesticUse * BASE.vaDomesticShare * annualFactor;
-  const cardAnnualBase = domesticUse * BASE.cardDomesticShare * annualFactor;
-
-  const vaAnnual = vaAnnualBase * gf;
-  const cardAnnual = cardAnnualBase * gf;
-
-  const vaConverted = vaAnnual * vaRate;
-  const cardConverted = cardAnnual * cardRate;
-
-  const vaTx = vaConverted / avgTicket;
-  const cardTx = cardConverted / avgTicket;
-
-  const vaInterest = (vaConverted / 365) * BASE.settlementDays * BASE.annualInterestRate;
-  const cardInterest = (cardConverted / 365) * BASE.settlementDays * BASE.annualInterestRate;
-
-  const vaFeeEffect = vaTx * (BASE.virtualAccountFee - BASE.kakaopayFee);
-  const cardFeeEffect = (cardConverted * BASE.domesticCardFeeRate) - (cardTx * BASE.kakaopayFee);
-
-  const vaTotal = vaInterest + vaFeeEffect;
-  const cardTotal = cardInterest + cardFeeEffect;
-
-  const convertedTotal = vaConverted + cardConverted;
-  const interestTotal = vaInterest + cardInterest;
-  const feeTotal = vaFeeEffect + cardFeeEffect;
-  const totalEffect = vaTotal + cardTotal;
-
-  setKpi("kpiConverted", krw(convertedTotal), "카카오페이로 전환되는 연 이용금액", false);
-  setKpi("kpiInterest", krw(interestTotal), "정산 조기화에 따른 연 효과", false);
-  setKpi("kpiFee", krw(feeTotal), feeTotal >= 0 ? "수수료 절감 효과" : "수수료 증가 효과", feeTotal < 0);
-  setKpi("kpiTotal", krw(totalEffect), "예치이자 + 수수료 효과", totalEffect < 0);
-
-  const rows = [
-    ["가상계좌 → 카카오페이", vaRate, vaConverted, vaTx, vaInterest, vaFeeEffect, vaTotal],
-    ["국내카드 → 카카오페이", cardRate, cardConverted, cardTx, cardInterest, cardFeeEffect, cardTotal],
-    ["합계", null, convertedTotal, vaTx + cardTx, interestTotal, feeTotal, totalEffect]
+  const rows=[
+    ['가상계좌 → 카카오페이',vr,payVaConv,useVaConv,vaTx,vaInterest,vaFee,vaInterest+vaFee],
+    ['국내카드 → 카카오페이',cr,payCardConv,useCardConv,cardTx,cardInterest,cardFee,cardInterest+cardFee],
+    ['합계',null,payVaConv+payCardConv,useVaConv+useCardConv,vaTx+cardTx,vaInterest+cardInterest,vaFee+cardFee,vaInterest+cardInterest+vaFee+cardFee]
   ];
+  set('convertedPayment',krw(rows[2][2])); set('interest',krw(rows[2][5])); set('fee',krw(rows[2][6])); set('total',krw(rows[2][7]));
+  document.getElementById('fee').style.color=rows[2][6]<0?'#b42318':'#0f766e';
+  document.getElementById('total').style.color=rows[2][7]<0?'#b42318':'#0f766e';
 
-  const body = document.getElementById("breakdownBody");
-  body.innerHTML = "";
-  rows.forEach(r => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><strong>${r[0]}</strong></td>
-      <td>${r[1] === null ? "-" : pct(r[1])}</td>
-      <td class="mono">${krw(r[2])}</td>
-      <td class="mono">${Math.round(r[3]).toLocaleString("ko-KR")}건</td>
-      <td class="mono">${krw(r[4])}</td>
-      <td class="mono" style="color:${r[5] < 0 ? "var(--bad)" : "var(--good)"}">${krw(r[5])}</td>
-      <td class="mono" style="color:${r[6] < 0 ? "var(--bad)" : "var(--good)"}">${krw(r[6])}</td>
-    `;
-    body.appendChild(tr);
-  });
+  let body=document.getElementById('body'); body.innerHTML='';
+  rows.forEach(r=>{body.innerHTML+=`<tr><td><b>${r[0]}</b></td><td>${r[1]===null?'-':pct(r[1])}</td><td class="mono">${krw(r[2])}</td><td class="mono">${krw(r[3])}</td><td class="mono">${Math.round(r[4]).toLocaleString('ko-KR')}건</td><td class="mono">${krw(r[5])}</td><td class="mono" style="color:${r[6]<0?'#b42318':'#0f766e'}">${krw(r[6])}</td><td class="mono" style="color:${r[7]<0?'#b42318':'#0f766e'}">${krw(r[7])}</td></tr>`;});
 
-  document.getElementById("baseDailyUse").textContent = krw(BASE.totalUse / BASE.days);
-  document.getElementById("baseVaAnnual").textContent = krw(vaAnnualBase);
-  document.getElementById("baseCardAnnual").textContent = krw(cardAnnualBase);
-  document.getElementById("baseUseTotal").textContent = krw(BASE.totalUse);
-  document.getElementById("baseOverseasUse").textContent = krw(BASE.overseasUse);
-  document.getElementById("avgTicket").textContent = krw(avgTicket);
-  document.getElementById("growthFactor").textContent = `${gf.toLocaleString("ko-KR", {maximumFractionDigits: 3})}배`;
+  set('dailyPayment',krw(BASE.paymentTotal/BASE.paymentDays)); set('dailyUse',krw(BASE.useTotal/BASE.useDays)); set('vaUseBase',krw(domesticUse*BASE.vaShare*factor)); set('cardUseBase',krw(domesticUse*BASE.cardShare*factor));
+  set('paymentBasis',`가상계좌 일평균 ${krw(BASE.paymentVaDaily)}, 국내카드 일평균 ${krw(BASE.paymentCardDaily)} — 보증금 포함`);
+  set('useBasis',`총 이용금액 ${krw(BASE.useTotal)}, 해외이용금액 ${krw(BASE.overseasUse)} — 보증금 제외`);
+  set('avgTicket',krw(avgTicket)); set('growthFactor',g.toLocaleString('ko-KR',{maximumFractionDigits:3})+'배');
 
-  const interp = document.getElementById("interpretation");
-  const shareCard = convertedTotal > 0 ? cardConverted / convertedTotal : 0;
-  interp.innerHTML = `
-    <div>
-      선택한 조건에서는 연간 <strong>${krw(convertedTotal)}</strong>의 이용금액이 카카오페이 간편송금으로 전환됨.
-      이 중 국내카드 기여도는 <strong>${pct(shareCard)}</strong>임.
-    </div>
-    <div style="margin-top:8px;">
-      연간 예치이자 효과는 <strong>${krw(interestTotal)}</strong>, 수수료 효과는 <strong>${krw(feeTotal)}</strong>이며,
-      총 손익 효과는 <strong>${krw(totalEffect)}</strong>로 추정됨.
-    </div>
-    <div style="margin-top:8px;">
-      가상계좌 전환은 정산 조기화 효과는 있으나 수수료는 건당 20원 증가함. 반면 국내카드 전환은 2.12% 수수료가 건당 200원 구조로 대체되어 손익 개선 효과가 크게 나타남.
-    </div>
-  `;
+  const cardShare=rows[2][2]>0?payCardConv/rows[2][2]:0;
+  document.getElementById('summary').innerHTML=`선택 조건에서 연간 <b>${krw(rows[2][2])}</b>의 보증금 포함 결제금액이 카카오페이로 전환되며, 이에 따른 연 예치이자 효과는 <b>${krw(rows[2][5])}</b>임.<br><br>수수료 효과는 보증금 제외 이용금액 <b>${krw(rows[2][3])}</b> 기준으로 산정되며, 연 수수료 효과는 <b>${krw(rows[2][6])}</b>임.<br><br>연 총 손익 효과는 <b>${krw(rows[2][7])}</b>로 추정됨. 국내카드 전환 비중은 총 전환 결제금액의 <b>${pct(cardShare)}</b>이며, 국내카드 전환이 높을수록 수수료 절감 효과가 크게 나타남.`;
 }
-
-["vaRate", "cardRate", "growthRate"].forEach(id => {
-  document.getElementById(id).addEventListener("change", calculate);
-});
-calculate();
+['vaRate','cardRate','growthRate'].forEach(id=>document.getElementById(id).addEventListener('change',calc));
+calc();
 </script>
-</body>
-</html>
+</body></html>
